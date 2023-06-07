@@ -6,6 +6,7 @@
 %define drawio_version 14.7.6
 %define drawio_ext_version 1.1.0
 %define centreon_plugins_version 20230118
+%define puppeteer_version 18.2.1
 %define nagios4z_version 4.4.11
 %define rsyslog8z_version 8.2304.0
 %define influxdb_version 1.8.10
@@ -72,6 +73,7 @@ Requires: net-tools
 # https://packages.zenetys.com/
 Requires: catdoc
 Requires: centreon-plugins = %{centreon_plugins_version}
+Requires: puppeteer = %{puppeteer_version}
 Requires: nagios4z = %{nagios4z_version}
 Requires: rsyslog8z = %{rsyslog8z_version}
 # influxdata
