@@ -169,3 +169,11 @@ cd ..
 %files setup
 /opt/kompot/bin/setup-kompot
 
+%posttrans setup
+set -e
+# busybox sv is installed in /usr/local/bin on kompot docker
+PATH+=:/usr/local/bin
+if [ "$KOMPOT_SETUP" != 0 ]; then
+    /opt/kompot/bin/setup-kompot
+    /opt/kompot/bin/init-kompot condrestart
+fi
