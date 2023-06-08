@@ -61,6 +61,7 @@ Requires: nagios-plugins-by_ssh
 Requires: nagios-plugins-dig
 Requires: nagios-plugins-disk
 Requires: nagios-plugins-dummy
+Requires: nagios-plugins-http
 Requires: nagios-plugins-icmp
 Requires: nagios-plugins-load
 Requires: nagios-plugins-ping
