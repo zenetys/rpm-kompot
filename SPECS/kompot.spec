@@ -64,6 +64,7 @@ Requires: nagios-plugins-dummy
 Requires: nagios-plugins-http
 Requires: nagios-plugins-icmp
 Requires: nagios-plugins-load
+Requires: nagios-plugins-ntp
 Requires: nagios-plugins-ping
 Requires: nagios-plugins-procs
 Requires: nagios-plugins-snmp
