@@ -65,6 +65,7 @@ Requires: nagios-plugins-icmp
 Requires: nagios-plugins-load
 Requires: nagios-plugins-ping
 Requires: nagios-plugins-procs
+Requires: nagios-plugins-snmp
 Requires: nagios-plugins-ssh
 Requires: nagios-plugins-swap
 Requires: nagios-plugins-tcp
