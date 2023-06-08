@@ -42,6 +42,7 @@ Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 # standard
 Requires: cronie
+Requires: diffutils
 Requires: findutils
 Requires: httpd
 Requires: iproute
