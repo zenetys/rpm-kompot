@@ -1,6 +1,6 @@
 # Supported targets: el9
 
-%define kompot_version 1.0.0
+%define kompot_version 1.0.1
 #define kompot_revision 1234567
 
 %define drawio_version 14.7.6
@@ -16,7 +16,7 @@
 
 Name: kompot
 Version: %{kompot_version}
-Release: 2%{?kompot_revision:.git%{kompot_revision}}%{?dist}.zenetys
+Release: 1%{?kompot_revision:.git%{kompot_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
