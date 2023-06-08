@@ -113,6 +113,8 @@ else
     npm install --loglevel verbose
     tar cJf "%{_sourcedir}/node_modules_${node_modules_sig}_%{_arch}.tar.xz" node_modules
 fi
+sed -i -r -e 's,^(\s*"name"\s*:\s*)"[^"]*",\1"kompot",' \
+    -e 's,^(\s*"version"\s*:\s*)"[^"]*",\1"%{version}",' package.json
 npm run build
 cd ../..
 
