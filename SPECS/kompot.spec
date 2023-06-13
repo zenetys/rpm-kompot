@@ -155,6 +155,14 @@ mv -T %{buildroot}/opt/kompot/share/configs/nagios/objects %{buildroot}/opt/komp
 ## rsyslog
 install -d -m 0755 %{buildroot}/opt/kompot/lib/rsyslog
 mv -T %{buildroot}/opt/kompot/share/configs/rsyslog/conf.d %{buildroot}/opt/kompot/lib/rsyslog/conf.d
+## migration scripts
+migration_scripts=(
+    to-kompot-1.0.2.sh
+)
+install -d -m 0755 %{buildroot}/opt/kompot/share/migration
+for i in "${migration_scripts[@]}"; do
+    install -DTp -m 755 "%{_sourcedir}/migration/$i" "%{buildroot}/opt/kompot/share/migration/$i"
+done
 cd ..
 
 # kompot-wui
@@ -200,9 +208,11 @@ cd ..
 %files
 /opt/kompot
 %exclude /opt/kompot/bin/setup-kompot
+%exclude /opt/kompot/share/migration
 
 %files setup
 /opt/kompot/bin/setup-kompot
+/opt/kompot/share/migration
 
 %posttrans setup
 set -e
