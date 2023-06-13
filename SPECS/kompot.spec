@@ -122,8 +122,8 @@ cd ../..
 
 %install
 # kompot
-install -d -m 0755 %{buildroot}/opt/kompot/{lib,share,www}
 cd kompot
+install -d -m 0755 %{buildroot}/opt/kompot/{lib,share,www}
 cp -RT configs %{buildroot}/opt/kompot/share/configs
 cp -RT cgis %{buildroot}/opt/kompot/www/cgi-bin
 cp -RT samples %{buildroot}/opt/kompot/share/samples
