@@ -21,10 +21,10 @@ https://packages.zenetys.com/latest/redhat/
 
 The RPM spec file builds two packages:
 
-* _kompot_ only installs files in /opt/kompot without touching the system.
-* _kompot-setup_ is a glue package that depends on the various components used in Kompot, eg: nagios, rsyslog, grafana, etc. Unless installed with KOMPOT_SETUP=0 in environment, it runs a setup script on %posttrans that installs Kompot configuration bits in /etc.
+* <u>kompot</u> only installs files in /opt/kompot without touching the system.
+* <u>kompot-setup</u> is a glue package that depends on the various components used in Kompot, eg: nagios, rsyslog, grafana, etc. Unless installed with KOMPOT_SETUP=0 in environment, it runs a setup script on %posttrans that installs Kompot configuration bits in /etc.
 
-Requirements:
+**Requirements:**
 
 * Before installing kompot-setup, make sure you have configured the required YUM repositories. You also need to enable nodejs:18 module stream.
 
@@ -40,17 +40,20 @@ dnf -y module enable nodejs:18
 
 * For now SELinux must be disabled on the system.
 * Make sure your system is timesync'ed (eg: chrony, ntpd).
+* Disable firewalld or tune it properly, you will need HTTP access on port 80 for a start.
 
-Install:
+**Install.** You may add `--setopt install_weak_deps=False` to the dnf command in order to avoid unnecessary dependencies.
 
 ```
 dnf install kompot kompot-setup
 ```
 
-Start services. You may login again to get /opt/kompot/bin in your PATH.
+**Start services.** You may login again to get /opt/kompot/bin in your PATH.
 
 ```
 /opt/kompot/bin/init-kompot restart
 ```
 
-Now point your browser to http://\<ip-address\>/kompot/
+**Test.** Now point your browser to <u>http://\<ip-address\>/kompot/</u> and switch to level 5.
+
+<i>More to come in a proper doc on the main project page or wiki...</i>
