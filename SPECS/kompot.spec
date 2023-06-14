@@ -133,6 +133,9 @@ cp -RT wui/dist %{buildroot}/opt/kompot/www/htdocs
 ## apache
 install -d -m 0755 %{buildroot}/opt/kompot/lib/httpd
 mv -T %{buildroot}/opt/kompot/share/configs/apache/conf.d %{buildroot}/opt/kompot/lib/httpd/conf.d
+## logrotate
+install -d -m 0755 %{buildroot}/opt/kompot/lib/logrotate
+mv -T %{buildroot}/opt/kompot/share/configs/logrotate/conf.d %{buildroot}/opt/kompot/lib/logrotate/conf.d
 mv -T %{buildroot}/opt/kompot/share/configs/nagios/objects %{buildroot}/opt/kompot/lib/nagios
 ## rsyslog
 install -d -m 0755 %{buildroot}/opt/kompot/lib/rsyslog
