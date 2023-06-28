@@ -1,7 +1,9 @@
 # Supported targets: el9
 
-%{!?kompot_version: %define kompot_version 1.0.1}
-#define kompot_revision 1234567
+%{!?kompot_core_version: %define kompot_core_version 1.0.1}
+#define kompot_core_revision 1234567
+%{!?kompot_wui_version: %define kompot_wui_version 1.0.1}
+#define kompot_wui_revision 1234567
 
 %{!?drawio_version: %define drawio_version 14.7.6}
 %{!?drawio_ext_version: %define drawio_ext_version 1.1.0}
@@ -15,17 +17,23 @@
 %global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action).cgi)$
 
 Name: kompot
-Version: %{kompot_version}
-Release: 1%{?kompot_revision:.git%{kompot_revision}}%{?dist}.zenetys
+Version: %{kompot_core_version}
+Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
 URL: https://github.com/zenetys/kompot
 
-%if 0%{?kompot_revision:1}
-Source0: http://git.zenetys.loc/data/projects/kompot.git/snapshot/%{kompot_revision}.tar.gz#/kompot-%{kompot_revision}.tar.gz
+%if 0%{?kompot_core_revision:1}
+Source0: http://git.zenetys.loc/data/projects/kompot-core.git/snapshot/%{kompot_core_revision}.tar.gz#/kompot-core-%{kompot_core_revision}.tar.gz
 %else
-Source0: https://github.com/zenetys/kompot/archive/refs/tags/v%{kompot_version}.tar.gz#/kompot-%{kompot_version}.tar.gz
+Source0: https://github.com/zenetys/kompot-core/archive/refs/tags/v%{kompot_core_version}.tar.gz#/kompot-core-%{kompot_core_version}.tar.gz
+%endif
+
+%if 0%{?kompot_wui_revision:1}
+Source10: http://git.zenetys.loc/data/projects/kompot-wui.git/snapshot/%{kompot_wui_revision}.tar.gz#/kompot-wui-%{kompot_wui_revision}.tar.gz
+%else
+Source10: https://github.com/zenetys/kompot-wui/archive/refs/tags/v%{kompot_wui_version}.tar.gz#/kompot-wui-%{kompot_wui_version}.tar.gz
 %endif
 
 Source100: https://github.com/jgraph/drawio/archive/v%{drawio_version}.tar.gz#/drawio-%{drawio_version}.tar.gz
@@ -94,10 +102,15 @@ This package installs Kompot.
 System setup and dependencies for Kompot.
 
 %prep
-# kompot
 %setup -c -T
-mkdir kompot
-tar xvzf %{SOURCE0} --strip-components 1 -C kompot
+
+# kompot-core
+mkdir kompot-core
+tar xvzf %{SOURCE0} --strip-components 1 -C kompot-core
+
+# kompot-wui
+mkdir kompot-wui
+tar xvzf %{SOURCE10} --strip-components 1 -C kompot-wui
 
 # drawio
 %setup -T -D -a 100
@@ -106,8 +119,8 @@ tar xvzf %{SOURCE0} --strip-components 1 -C kompot
 %setup -T -D -a 101
 
 %build
-# kompot
-cd kompot/wui
+# kompot-wui
+cd kompot-wui
 node_modules_sig=$(md5sum package.json |awk '{print $1}')
 if [ -f "%_sourcedir/node_modules_${node_modules_sig}_%{_arch}.tar.xz" ]; then
     tar xvJf "%{_sourcedir}/node_modules_${node_modules_sig}_%{_arch}.tar.xz"
@@ -115,21 +128,22 @@ else
     npm install --loglevel verbose
     tar cJf "%{_sourcedir}/node_modules_${node_modules_sig}_%{_arch}.tar.xz" node_modules
 fi
-sed -i -r -e 's,^(\s*"name"\s*:\s*)"[^"]*",\1"kompot",' \
-    -e 's,^(\s*"version"\s*:\s*)"[^"]*",\1"%{version}",' package.json
-npm run build
-cd ../..
+(
+    export VUE_APP_NAME=kompot
+    export VUE_APP_VERSION=%{version}
+    npm run build
+)
+cd ..
 
 %install
-# kompot
-cd kompot
+# kompot-core
+cd kompot-core
 install -d -m 0755 %{buildroot}/opt/kompot/{lib,share,www}
 cp -RT configs %{buildroot}/opt/kompot/share/configs
 cp -RT cgis %{buildroot}/opt/kompot/www/cgi-bin
 cp -RT samples %{buildroot}/opt/kompot/share/samples
 cp -RT scripts %{buildroot}/opt/kompot/bin
 cp -RT plugins %{buildroot}/opt/kompot/lib/plugins
-cp -RT wui/dist %{buildroot}/opt/kompot/www/htdocs
 ## apache
 install -d -m 0755 %{buildroot}/opt/kompot/lib/httpd
 mv -T %{buildroot}/opt/kompot/share/configs/apache/conf.d %{buildroot}/opt/kompot/lib/httpd/conf.d
@@ -141,6 +155,11 @@ mv -T %{buildroot}/opt/kompot/share/configs/nagios/objects %{buildroot}/opt/komp
 ## rsyslog
 install -d -m 0755 %{buildroot}/opt/kompot/lib/rsyslog
 mv -T %{buildroot}/opt/kompot/share/configs/rsyslog/conf.d %{buildroot}/opt/kompot/lib/rsyslog/conf.d
+cd ..
+
+# kompot-wui
+cd kompot-wui
+cp -RT dist %{buildroot}/opt/kompot/www/htdocs
 cd ..
 
 # drawio
