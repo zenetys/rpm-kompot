@@ -149,6 +149,7 @@ install -d -m 0755 %{buildroot}/opt/kompot/lib/httpd
 mv -T %{buildroot}/opt/kompot/share/configs/apache/conf.d %{buildroot}/opt/kompot/lib/httpd/conf.d
 ## logrotate
 install -d -m 0755 %{buildroot}/opt/kompot/lib/logrotate
+mv -t %{buildroot}/opt/kompot/lib/logrotate/ %{buildroot}/opt/kompot/bin/logrotate-mk-olddir
 mv -T %{buildroot}/opt/kompot/share/configs/logrotate/conf.d %{buildroot}/opt/kompot/lib/logrotate/conf.d
 ## nagios
 mv -T %{buildroot}/opt/kompot/share/configs/nagios/objects %{buildroot}/opt/kompot/lib/nagios
