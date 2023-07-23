@@ -2,7 +2,7 @@
 
 %{!?kompot_core_version: %define kompot_core_version 1.0.4}
 #define kompot_core_revision 1234567
-%{!?kompot_wui_version: %define kompot_wui_version 1.0.4}
+%{!?kompot_wui_version: %define kompot_wui_version 1.0.5}
 #define kompot_wui_revision 1234567
 
 %{!?drawio_version: %define drawio_version 14.7.6}
@@ -18,7 +18,7 @@
 
 Name: kompot
 Version: %{kompot_core_version}
-Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
+Release: 2%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
@@ -41,7 +41,8 @@ Source101: https://github.com/zenetys/drawio-ext/archive/v%{drawio_ext_version}.
 
 BuildArch: noarch
 
-BuildRequires: npm
+# yarn is available in epel
+BuildRequires: yarnpkg
 
 %package setup
 Summary: Glue package for Kompot
@@ -125,13 +126,13 @@ node_modules_sig=$(md5sum package.json |awk '{print $1}')
 if [ -f "%_sourcedir/node_modules_${node_modules_sig}_%{_arch}.tar.xz" ]; then
     tar xvJf "%{_sourcedir}/node_modules_${node_modules_sig}_%{_arch}.tar.xz"
 else
-    npm install --loglevel verbose
-    tar cJf "%{_sourcedir}/node_modules_${node_modules_sig}_%{_arch}.tar.xz" node_modules
+    yarn
+    tar cJf "%{_sourcedir}/node_modules_${node_modules_sig}_%{_arch}.tar.xz" node_modules yarn.lock
 fi
 (
-    export VUE_APP_NAME=kompot
-    export VUE_APP_VERSION=%{version}
-    npm run build
+    export VITE_APP_NAME=kompot
+    export VITE_APP_VERSION=%{version}
+    yarn build
 )
 cd ..
 
