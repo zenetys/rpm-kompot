@@ -10,7 +10,7 @@
 %{!?centreon_plugins_version: %define centreon_plugins_version 20230118}
 %{!?puppeteer_version: %define puppeteer_version 18.2.1}
 %{!?nagios4z_version: %define nagios4z_version 4.4.13}
-%{!?rsyslog8z_version: %define rsyslog8z_version 8.2304.0}
+%{!?rsyslog8z_version: %define rsyslog8z_version 8.2306.0}
 %{!?influxdb_version: %define influxdb_version 1.8.10}
 %{!?grafana_version: %define grafana_version 9.5.2}
 
