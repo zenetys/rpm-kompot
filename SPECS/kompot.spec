@@ -7,12 +7,6 @@
 
 %{!?drawio_version: %define drawio_version 14.7.6}
 %{!?drawio_ext_version: %define drawio_ext_version 1.1.0}
-%{!?centreon_plugins_version: %define centreon_plugins_version 20230118}
-%{!?puppeteer_version: %define puppeteer_version 18.2.1}
-%{!?nagios4z_version: %define nagios4z_version 4.4.13}
-%{!?rsyslog8z_version: %define rsyslog8z_version 8.2306.0}
-%{!?influxdb_version: %define influxdb_version 1.8.10}
-%{!?grafana_version: %define grafana_version 9.5.2}
 
 %global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action).cgi)$
 
@@ -83,18 +77,20 @@ Requires: nagios-plugins-tcp
 Requires: nagios-plugins-users
 Requires: net-tools
 # zenetys
-# https://packages.zenetys.com/
+# https://packages.zenetys.com/projects/kompot/
 Requires: catdoc
-Requires: centreon-plugins = %{centreon_plugins_version}
-Requires: puppeteer = %{puppeteer_version}
-Requires: nagios4z = %{nagios4z_version}
-Requires: rsyslog8z = %{rsyslog8z_version}
+Requires: centreon-plugins
+Requires: puppeteer
+Requires: nagios4z
+Requires: rsyslog8z
 # influxdata
 # https://repos.influxdata.com/
-Requires: influxdb = %{influxdb_version}
+# required version is copied in kompot repo under external/
+Requires: influxdb
 # grafana
 # https://rpm.grafana.com/
-Requires: grafana = %{grafana_version}
+# required version is copied in kompot repo under external/
+Requires: grafana
 
 %description
 This package installs Kompot.

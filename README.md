@@ -14,7 +14,7 @@ $ ./rpmbuild-docker -d el9
 ## Prebuilt packages:
 
 Builds of these packages are available on ZENETYS yum repositories:<br/>
-https://packages.zenetys.com/latest/redhat/
+https://packages.zenetys.com/projects/kompot/latest/redhat/
 
 
 ## Setup:
@@ -32,9 +32,7 @@ The RPM spec file builds two packages:
 dnf -y install epel-release
 crb enable
 cd /etc/yum.repos.d
-curl -OL https://packages.zenetys.com/latest/redhat/zenetys-latest.repo
-curl -OL https://raw.githubusercontent.com/zenetys/docker-kompot/master/repos/grafana.repo
-curl -OL https://raw.githubusercontent.com/zenetys/docker-kompot/master/repos/influxdata.repo
+curl -OL https://packages.zenetys.com/projects/kompot/latest/redhat/kompot.repo
 dnf -y module enable nodejs:18
 ```
 
