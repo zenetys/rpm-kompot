@@ -56,6 +56,7 @@ Requires: net-snmp-utils
 Requires: openssh-server
 Requires: procps-ng
 Requires: psmisc
+Requires: s-nail
 Requires: sqlite
 Requires: sudo
 # epel
