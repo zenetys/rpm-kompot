@@ -81,6 +81,7 @@ Requires: net-tools
 # https://packages.zenetys.com/projects/kompot/
 Requires: catdoc
 Requires: centreon-plugins
+Requires: centreon-vmware
 Requires: puppeteer
 Requires: nagios4z
 Requires: rsyslog8z
