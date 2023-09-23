@@ -85,6 +85,7 @@ Requires: centreon-vmware
 Requires: puppeteer
 Requires: nagios4z
 Requires: rsyslog8z
+Requires: smstools
 # influxdata
 # https://repos.influxdata.com/
 # required version is copied in kompot repo under external/
