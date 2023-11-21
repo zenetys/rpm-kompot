@@ -10,6 +10,17 @@
 
 %global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action).cgi)$
 
+%define zenetys_git_source() %{lua:
+    local version_source = 'https://github.com/zenetys/%s/archive/refs/tags/v%s.tar.gz#/%s-%s.tar.gz'
+    local revision_source = 'http://git.zenetys.loc/data/projects/%s.git/snapshot/%s.tar.gz#/%s-%s.tar.gz'
+    local name = rpm.expand("%{1}")
+    local iname = name:gsub("%W", "_")
+    local version = rpm.expand("%{"..iname.."_version}")
+    local revision = rpm.expand("%{?"..iname.."_revision}")
+    if revision == '' then print(version_source:format(name, version, name, version))
+    else print(revision_source:format(name, revision, name, revision)) end
+}
+
 Name: kompot
 Version: %{kompot_core_version}
 Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
@@ -18,18 +29,8 @@ Group: Applications/System
 License: MIT
 URL: https://github.com/zenetys/kompot
 
-%if 0%{?kompot_core_revision:1}
-Source0: http://git.zenetys.loc/data/projects/kompot-core.git/snapshot/%{kompot_core_revision}.tar.gz#/kompot-core-%{kompot_core_revision}.tar.gz
-%else
-Source0: https://github.com/zenetys/kompot-core/archive/refs/tags/v%{kompot_core_version}.tar.gz#/kompot-core-%{kompot_core_version}.tar.gz
-%endif
-
-%if 0%{?kompot_wui_revision:1}
-Source10: http://git.zenetys.loc/data/projects/kompot-wui.git/snapshot/%{kompot_wui_revision}.tar.gz#/kompot-wui-%{kompot_wui_revision}.tar.gz
-%else
-Source10: https://github.com/zenetys/kompot-wui/archive/refs/tags/v%{kompot_wui_version}.tar.gz#/kompot-wui-%{kompot_wui_version}.tar.gz
-%endif
-
+Source0: %zenetys_git_source kompot-core
+Source10: %zenetys_git_source kompot-wui
 Source100: https://github.com/jgraph/drawio/archive/v%{drawio_version}.tar.gz#/drawio-%{drawio_version}.tar.gz
 Source101: https://github.com/zenetys/drawio-ext/archive/v%{drawio_ext_version}.tar.gz#/drawio-ext-%{drawio_ext_version}.tar.gz
 
