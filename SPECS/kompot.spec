@@ -154,6 +154,8 @@ mv -t %{buildroot}/opt/kompot/lib/logrotate/ %{buildroot}/opt/kompot/bin/logrota
 mv -T %{buildroot}/opt/kompot/share/configs/logrotate/conf.d %{buildroot}/opt/kompot/lib/logrotate/conf.d
 ## nagios
 mv -T %{buildroot}/opt/kompot/share/configs/nagios/objects %{buildroot}/opt/kompot/lib/nagios
+## nagzen
+mv -T %{buildroot}/opt/kompot/share/configs/nagzen/templates %{buildroot}/opt/kompot/lib/nagzen
 ## rsyslog
 install -d -m 0755 %{buildroot}/opt/kompot/lib/rsyslog
 mv -T %{buildroot}/opt/kompot/share/configs/rsyslog/conf.d %{buildroot}/opt/kompot/lib/rsyslog/conf.d
