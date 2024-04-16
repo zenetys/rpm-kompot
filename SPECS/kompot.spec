@@ -23,7 +23,7 @@
 
 Name: kompot
 Version: %{kompot_core_version}
-Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
+Release: 2%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
@@ -40,6 +40,9 @@ BuildArch: noarch
 BuildRequires: gawk
 # yarn is available in epel
 BuildRequires: yarnpkg
+
+# standard
+Requires(pre): gawk
 
 %package setup
 Summary: Glue package for Kompot
@@ -211,6 +214,18 @@ cd ..
 cd drawio-ext-%{drawio_ext_version}
     install -Dp -m 644 src/live.js %{buildroot}/opt/kompot/www/drawio/js/
 cd ..
+
+%pre
+# backup modified files if any
+if [ "$1" != 0 ]; then
+    files=$(rpm -V '%{name}' |awk '$1 ~ /^..5/ { print substr($NF, 2) }')
+    if [ -n "$files" ]; then
+        tarball='/var/lib/kompot/backup/%{name}-before-%{version}-%{release}-%(date +\%s).tar.gz'
+        echo "# Backup modified files to $tarball"
+        mkdir -p "${tarball%/*}"
+        echo "$files" |tar hcvzf "$tarball" -C / -T -
+    fi
+fi
 
 %files
 /opt/kompot
