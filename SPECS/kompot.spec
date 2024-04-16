@@ -36,6 +36,8 @@ Source101: https://github.com/zenetys/drawio-ext/archive/v%{drawio_ext_version}.
 
 BuildArch: noarch
 
+# standard
+BuildRequires: gawk
 # yarn is available in epel
 BuildRequires: yarnpkg
 
