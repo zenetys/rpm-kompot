@@ -5,7 +5,7 @@
 %{!?kompot_wui_version: %define kompot_wui_version 1.0.7}
 #define kompot_wui_revision 1234567
 
-%{!?drawio_version: %define drawio_version 14.7.6}
+%{!?drawio_version: %define drawio_version 24.7.17}
 %{!?drawio_ext_version: %define drawio_ext_version 1.2.0}
 
 %global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action).cgi)$
@@ -183,28 +183,36 @@ cd ..
 # drawio
 drawio_files=(
     favicon.ico
-    images/android-chrome-196x196.png
-    images/manifest.json
-    images/osa_database.png
-    images/osa_drive-harddisk.png
+    images
+    img
     index.html
     js/PostConfig.js
     js/app.min.js
-    js/croppie/croppie.min.css
     js/extensions.min.js
+    js/open.js
     js/shapes-14-6-5.min.js
     js/stencils.min.js
-    math/MathJax.js
-    math/config/TeX-MML-AM_SVG-full.js
-    math/jax/output/SVG/fonts/TeX/fontdata.js
-    mxgraph/css/common.css
+    math/es5/core.js
+    math/es5/input/asciimath.js
+    math/es5/input/tex.js
+    math/es5/output/svg.js
+    math/es5/output/svg/fonts/tex.js
+    math/es5/startup.js
+    math/es5/ui/safe.js
+    mxgraph/css
+    mxgraph/images
+    open.html
     resources/dia.txt
     resources/dia_fr.txt
-    styles/grapheditor.css
+    shortcuts.svg
+    styles
+    templates
 )
 cd drawio-%{drawio_version}
+mkdir -p %{buildroot}/opt/kompot/www/drawio
 for i in "${drawio_files[@]}"; do
-    install -DTp -m 644 "src/main/webapp/$i" "%{buildroot}/opt/kompot/www/drawio/$i"
+    [ "$i" == "${i//\/}" ] || mkdir -p "%{buildroot}/opt/kompot/www/drawio/${i%/*}"
+    cp -RT --preserve=timestamps "src/main/webapp/$i" "%{buildroot}/opt/kompot/www/drawio/$i"
 done
 mv %{buildroot}/opt/kompot/share/configs/drawio/js/PreConfig.js %{buildroot}/opt/kompot/www/drawio/js/
 rm -rf %{buildroot}/opt/kompot/share/configs/drawio
