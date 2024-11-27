@@ -6,7 +6,7 @@
 #define kompot_wui_revision 1234567
 
 %{!?drawio_version: %define drawio_version 14.7.6}
-%{!?drawio_ext_version: %define drawio_ext_version 1.1.0}
+%{!?drawio_ext_version: %define drawio_ext_version 1.2.0}
 
 %global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action).cgi)$
 
