@@ -2,7 +2,7 @@
 
 %{!?kompot_core_version: %define kompot_core_version 1.0.14}
 #define kompot_core_revision 1234567
-%{!?kompot_wui_version: %define kompot_wui_version 1.0.7}
+%{!?kompot_wui_version: %define kompot_wui_version 1.0.8}
 #define kompot_wui_revision 1234567
 
 %{!?drawio_version: %define drawio_version 24.7.17}
@@ -175,11 +175,6 @@ for i in "${migration_scripts[@]}"; do
 done
 cd ..
 
-# kompot-wui
-cd kompot-wui
-cp -RT dist %{buildroot}/opt/kompot/www/htdocs
-cd ..
-
 # drawio
 drawio_files=(
     favicon.ico
@@ -221,6 +216,12 @@ cd ..
 # drawio-ext
 cd drawio-ext-%{drawio_ext_version}
     install -Dp -m 644 src/live.js %{buildroot}/opt/kompot/www/drawio/js/
+cd ..
+
+# kompot-wui
+cd kompot-wui
+cp -RT dist %{buildroot}/opt/kompot/www/htdocs
+install -Dp -m 644 misc/kedit.html %{buildroot}/opt/kompot/www/drawio/
 cd ..
 
 %pre
