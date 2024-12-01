@@ -1,6 +1,6 @@
 # Supported targets: el9
 
-%{!?kompot_core_version: %define kompot_core_version 1.0.14}
+%{!?kompot_core_version: %define kompot_core_version 1.0.15}
 #define kompot_core_revision 1234567
 %{!?kompot_wui_version: %define kompot_wui_version 1.0.8}
 #define kompot_wui_revision 1234567
@@ -23,7 +23,7 @@
 
 Name: kompot
 Version: %{kompot_core_version}
-Release: 2%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
+Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
@@ -168,6 +168,7 @@ mv -T %{buildroot}/opt/kompot/share/configs/rsyslog/conf.d %{buildroot}/opt/komp
 ## migration scripts
 migration_scripts=(
     to-kompot-1.0.2.sh
+    to-kompot-1.0.15.sh
 )
 install -d -m 0755 %{buildroot}/opt/kompot/share/migration
 for i in "${migration_scripts[@]}"; do
@@ -181,7 +182,6 @@ drawio_files=(
     images
     img
     index.html
-    js/PostConfig.js
     js/app.min.js
     js/extensions.min.js
     js/open.js
@@ -210,6 +210,7 @@ for i in "${drawio_files[@]}"; do
     cp -RT --preserve=timestamps "src/main/webapp/$i" "%{buildroot}/opt/kompot/www/drawio/$i"
 done
 mv %{buildroot}/opt/kompot/share/configs/drawio/js/PreConfig.js %{buildroot}/opt/kompot/www/drawio/js/
+mv %{buildroot}/opt/kompot/share/configs/drawio/js/PostConfig.js %{buildroot}/opt/kompot/www/drawio/js/
 rm -rf %{buildroot}/opt/kompot/share/configs/drawio
 cd ..
 
