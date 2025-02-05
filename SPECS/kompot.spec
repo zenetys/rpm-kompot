@@ -38,6 +38,7 @@ BuildArch: noarch
 
 # standard
 BuildRequires: gawk
+BuildRequires: tar
 # yarn is available in epel
 BuildRequires: yarnpkg
 
@@ -65,6 +66,7 @@ Requires: psmisc
 Requires: s-nail
 Requires: sqlite
 Requires: sudo
+Requires: tar
 # epel
 # https://dl.fedoraproject.org/pub/epel/
 Requires: nagios-plugins-by_ssh
