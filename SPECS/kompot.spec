@@ -5,6 +5,7 @@
 %{!?kompot_wui_version: %define kompot_wui_version 1.0.9}
 #define kompot_wui_revision 1234567
 
+%{!?zplugins_version: %define zplugins_version 1.0.2}
 %{!?drawio_version: %define drawio_version 24.7.17}
 %{!?drawio_ext_version: %define drawio_ext_version 1.2.1}
 
@@ -12,13 +13,13 @@
 
 %define zenetys_git_source() %{lua:
     local version_source = 'https://github.com/zenetys/%s/archive/refs/tags/v%s.tar.gz#/%s-%s.tar.gz'
-    local revision_source = 'http://git.zenetys.loc/data/projects/%s.git/snapshot/%s.tar.gz#/%s-%s.tar.gz'
+    local revision_source = 'http://git.zenetys.loc/data/projects/%s.git/snapshot/x.tar.gz?h=%s#/%s-%s.tar.gz'
     local name = rpm.expand("%{1}")
     local iname = name:gsub("%W", "_")
     local version = rpm.expand("%{"..iname.."_version}")
     local revision = rpm.expand("%{?"..iname.."_revision}")
     if revision == '' then print(version_source:format(name, version, name, version))
-    else print(revision_source:format(name, revision, name, revision)) end
+    else print(revision_source:format(name, revision, name, revision:gsub('/', '_'))) end
 }
 
 Name: kompot
@@ -31,6 +32,7 @@ URL: https://github.com/zenetys/kompot
 
 Source0: %zenetys_git_source kompot-core
 Source10: %zenetys_git_source kompot-wui
+Source20: %zenetys_git_source zplugins
 Source100: https://github.com/jgraph/drawio/archive/v%{drawio_version}.tar.gz#/drawio-%{drawio_version}.tar.gz
 Source101: https://github.com/zenetys/drawio-ext/archive/v%{drawio_ext_version}.tar.gz#/drawio-ext-%{drawio_ext_version}.tar.gz
 
@@ -38,6 +40,7 @@ BuildArch: noarch
 
 # standard
 BuildRequires: gawk
+BuildRequires: sed
 BuildRequires: tar
 # yarn is available in epel
 BuildRequires: yarnpkg
@@ -57,6 +60,7 @@ Requires: findutils
 Requires: httpd
 Requires: iproute
 Requires: jq
+Requires: lua(abi) = 5.4
 Requires: logrotate
 Requires: net-snmp
 Requires: net-snmp-utils
@@ -90,6 +94,11 @@ Requires: net-tools
 Requires: catdoc
 Requires: centreon-plugins
 Requires: centreon-vmware
+Requires: lua54z-cjson
+Requires: lua54z-curl
+Requires: lua54z-lsqlite3
+Requires: lua54z-print_r
+Requires: lua54z-snmp
 Requires: puppeteer
 Requires: nagios4z
 Requires: rsyslog8z
@@ -120,6 +129,10 @@ tar xvzf %{SOURCE0} --strip-components 1 -C kompot-core
 mkdir kompot-wui
 tar xvzf %{SOURCE10} --strip-components 1 -C kompot-wui
 
+# kompot-wui
+mkdir zplugins
+tar xvzf %{SOURCE20} --strip-components 1 -C zplugins
+
 # drawio
 %setup -T -D -a 100
 
@@ -141,6 +154,12 @@ fi
     export VITE_APP_VERSION=%{version}
     yarn build
 )
+cd ..
+
+# zplugins
+cd zplugins
+awk 'FNR==1 && /^#!/ && /\/lua\>/ {print FILENAME}' check_* |xargs --no-run-if-empty sed -i \
+    -e "1a package.path = package.path..';'..(arg[0]:gsub('/[^/]+$', ''))..'/?.lua'"
 cd ..
 
 %install
@@ -176,6 +195,11 @@ install -d -m 0755 %{buildroot}/opt/kompot/share/migration
 for i in "${migration_scripts[@]}"; do
     install -DTp -m 755 "%{_sourcedir}/migration/$i" "%{buildroot}/opt/kompot/share/migration/$i"
 done
+cd ..
+
+# zplugins
+cd zplugins
+cp --preserve=timestamps check_* lib*.lua %{buildroot}/opt/kompot/lib/plugins/zenetys/
 cd ..
 
 # drawio
