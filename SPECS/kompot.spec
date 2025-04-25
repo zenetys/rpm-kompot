@@ -147,12 +147,12 @@ cd ..
 # kompot-core
 cd kompot-core
 install -d -m 0755 %{buildroot}/opt/kompot/{lib,share,www}
-cp -RT doc %{buildroot}/opt/kompot/share/doc
-cp -RT configs %{buildroot}/opt/kompot/share/configs
-cp -RT cgis %{buildroot}/opt/kompot/www/cgi-bin
-cp -RT samples %{buildroot}/opt/kompot/share/samples
-cp -RT scripts %{buildroot}/opt/kompot/bin
-cp -RT plugins %{buildroot}/opt/kompot/lib/plugins
+cp -RT --preserve=timestamps doc %{buildroot}/opt/kompot/share/doc
+cp -RT --preserve=timestamps configs %{buildroot}/opt/kompot/share/configs
+cp -RT --preserve=timestamps cgis %{buildroot}/opt/kompot/www/cgi-bin
+cp -RT --preserve=timestamps samples %{buildroot}/opt/kompot/share/samples
+cp -RT --preserve=timestamps scripts %{buildroot}/opt/kompot/bin
+cp -RT --preserve=timestamps plugins %{buildroot}/opt/kompot/lib/plugins
 ## apache
 install -d -m 0755 %{buildroot}/opt/kompot/lib/httpd
 mv -T %{buildroot}/opt/kompot/share/configs/apache/conf.d %{buildroot}/opt/kompot/lib/httpd/conf.d
@@ -223,7 +223,7 @@ cd ..
 
 # kompot-wui
 cd kompot-wui
-cp -RT dist %{buildroot}/opt/kompot/www/htdocs
+cp -RT --preserve=timestamps dist %{buildroot}/opt/kompot/www/htdocs
 install -Dp -m 644 misc/kedit.html %{buildroot}/opt/kompot/www/drawio/
 cd ..
 
