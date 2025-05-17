@@ -24,7 +24,7 @@
 
 Name: kompot
 Version: %{kompot_core_version}
-Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
+Release: 2%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
