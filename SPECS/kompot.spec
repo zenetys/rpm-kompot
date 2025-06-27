@@ -73,6 +73,7 @@ Requires: sudo
 Requires: tar
 # epel
 # https://dl.fedoraproject.org/pub/epel/
+Requires: lua-filesystem
 Requires: nagios-plugins-by_ssh
 Requires: nagios-plugins-dig
 Requires: nagios-plugins-disk
