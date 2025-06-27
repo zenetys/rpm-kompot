@@ -1,6 +1,6 @@
 # Supported targets: el9
 
-%{!?kompot_core_version: %define kompot_core_version 1.0.19}
+%{!?kompot_core_version: %define kompot_core_version 1.0.20}
 #define kompot_core_revision 1234567
 %{!?kompot_wui_version: %define kompot_wui_version 1.0.9}
 #define kompot_wui_revision 1234567
@@ -24,7 +24,7 @@
 
 Name: kompot
 Version: %{kompot_core_version}
-Release: 3%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
+Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
