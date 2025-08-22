@@ -24,7 +24,7 @@
 
 Name: kompot
 Version: %{kompot_core_version}
-Release: 2%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
+Release: 3%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
@@ -101,7 +101,7 @@ Requires: lua54z-lsqlite3
 Requires: lua54z-print_r
 Requires: lua54z-snmp
 Requires: net-snmp-perl-minimal
-Requires: puppeteer
+#Requires: puppeteer
 Requires: nagios4z
 Requires: rsyslog8z
 Requires: smstools
