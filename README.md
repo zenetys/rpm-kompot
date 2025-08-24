@@ -26,32 +26,44 @@ The RPM spec file builds two packages:
 
 **Requirements:**
 
-* Before installing kompot-setup, make sure you have configured the required YUM repositories. You also need to enable nodejs:18 module stream.
+* Before installing kompot-setup, make sure you have configured the required YUM repositories and RPM GPG keys installed:
 
 ```
 dnf -y install epel-release
 crb enable
 cd /etc/yum.repos.d
 curl -OL https://packages.zenetys.com/projects/kompot/latest/redhat/kompot.repo
-dnf -y module enable nodejs:18
+rpm --import https://rpm.grafana.com/gpg.key
+rpm --import https://repos.influxdata.com/influxdata-archive.key
 ```
 
 * For now SELinux must be disabled on the system.
 * Make sure your system is timesync'ed (eg: chrony, ntpd).
 * Disable firewalld or tune it properly, you will need HTTP access on port 80 for a start.
 
-**Install.** You may add `--setopt install_weak_deps=False` to the dnf command in order to avoid unnecessary dependencies.
+**Install:**
 
 ```
-dnf install kompot kompot-setup
+dnf --setopt install_weak_deps=0 install kompot kompot-setup
 ```
 
-**Start services.** You may login again to get /opt/kompot/bin in your PATH.
+Puppeteer won't be installed by default because it requires a lot of dependencies while must users don't need it. To install it, run:
+
+```
+dnf module enable nodejs:18
+dnf --setopt install_weak_deps=0 install puppeteer
+```
+
+**Start services:**
+
+You may login again to get /opt/kompot/bin in your PATH.
 
 ```
 /opt/kompot/bin/init-kompot restart
 ```
 
-**Test.** Now point your browser to <u>http://\<ip-address\>/kompot/</u> and switch to level 5.
+**Test:**
+
+Point your browser to <u>http://\<ip-address\>/kompot/</u> and switch to level 5.
 
 <i>More to come in a proper doc on the main project page or wiki...</i>
