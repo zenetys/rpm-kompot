@@ -5,7 +5,7 @@
 %{!?kompot_wui_version: %define kompot_wui_version 1.0.9}
 #define kompot_wui_revision 1234567
 
-%{!?zplugins_version: %define zplugins_version 1.0.4}
+%{!?zplugins_version: %define zplugins_version 1.0.5}
 %{!?drawio_version: %define drawio_version 24.7.17}
 %{!?drawio_ext_version: %define drawio_ext_version 1.2.1}
 
