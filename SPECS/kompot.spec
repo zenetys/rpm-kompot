@@ -1,11 +1,11 @@
 # Supported targets: el9
 
-%{!?kompot_core_version: %define kompot_core_version 1.0.23}
+%{!?kompot_core_version: %define kompot_core_version 1.0.24}
 #define kompot_core_revision 1234567
 %{!?kompot_wui_version: %define kompot_wui_version 1.0.9}
 #define kompot_wui_revision 1234567
 
-%{!?zplugins_version: %define zplugins_version 1.0.5}
+%{!?zplugins_version: %define zplugins_version 1.0.6}
 %{!?drawio_version: %define drawio_version 24.7.17}
 %{!?drawio_ext_version: %define drawio_ext_version 1.2.1}
 
