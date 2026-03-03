@@ -1,15 +1,15 @@
 # Supported targets: el9
 
-%{!?kompot_core_version: %define kompot_core_version 1.0.24}
+%{!?kompot_core_version: %define kompot_core_version 1.0.25}
 #define kompot_core_revision 1234567
-%{!?kompot_wui_version: %define kompot_wui_version 1.0.9}
+%{!?kompot_wui_version: %define kompot_wui_version 1.0.10}
 #define kompot_wui_revision 1234567
 
 %{!?zplugins_version: %define zplugins_version 1.0.6}
 %{!?drawio_version: %define drawio_version 24.7.17}
 %{!?drawio_ext_version: %define drawio_ext_version 1.2.1}
 
-%global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action).cgi)$
+%global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action|history.*).cgi)$
 
 # Do not autoreq nodejs; puppeteer (and nodejs) have to be installed explicitly
 # otherwize there is too many heavy deps that nobody use most of the time.
@@ -50,7 +50,7 @@ BuildRequires: tar
 BuildRequires: yarnpkg
 
 # kompot-setup is now part of the kompot package
-Obsoletes: kompot-setup
+Obsoletes: kompot-setup < 1.0.25
 
 # standard
 Requires: cronie
@@ -192,6 +192,7 @@ mv -T %{buildroot}/opt/kompot/share/configs/rsyslog/conf.d %{buildroot}/opt/komp
 migration_scripts=(
     to-kompot-1.0.2.sh
     to-kompot-1.0.15.sh
+    to-kompot-1.0.25.sh
 )
 install -d -m 0755 %{buildroot}/opt/kompot/share/migration
 for i in "${migration_scripts[@]}"; do
