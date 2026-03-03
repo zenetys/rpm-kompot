@@ -72,6 +72,7 @@ Requires: sqlite
 Requires: sudo
 Requires: tar
 Requires: unzip
+Requires: xz
 # epel
 # https://dl.fedoraproject.org/pub/epel/
 Requires: lua-filesystem
