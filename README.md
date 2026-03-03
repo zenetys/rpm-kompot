@@ -66,4 +66,6 @@ You may login again to get /opt/kompot/bin in your PATH.
 
 Point your browser to <u>http://\<ip-address\>/kompot/</u> and switch to level 5.
 
-<i>More to come in a proper doc on the main project page or wiki...</i>
+## Documentation:
+
+Some pieces of documentation are available in [kompot-core](https://github.com/zenetys/kompot-core) repo, under the [`doc/` directory](https://github.com/zenetys/kompot-core/tree/master/doc).
