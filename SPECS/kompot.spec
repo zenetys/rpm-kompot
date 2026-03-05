@@ -11,6 +11,10 @@
 
 %global __brp_mangle_shebangs_exclude_from ^(/opt/kompot/www/cgi-bin/(rrd|action).cgi)$
 
+# Do not autoreq nodejs; puppeteer (and nodejs) have to be installed explicitly
+# otherwize there is too many heavy deps that nobody use most of the time.
+%global __requires_exclude_from ^(/opt/kompot/lib/plugins/zenetys/check_puppeteer)$
+
 %define zenetys_git_source() %{lua:
     local version_source = 'https://github.com/zenetys/%s/archive/refs/tags/v%s.tar.gz#/%s-%s.tar.gz'
     local revision_source = 'http://git.zenetys.loc/data/projects/%s.git/snapshot/x.tar.gz?h=%s#/%s-%s.tar.gz'
@@ -105,6 +109,7 @@ Requires: lua54z-snmp
 Requires: net-snmp-perl-minimal
 #Requires: puppeteer
 Requires: nagios4z
+#Requires: nodejs
 Requires: rsyslog8z
 Requires: smstools
 # influxdata
