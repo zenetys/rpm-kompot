@@ -49,18 +49,14 @@ BuildRequires: tar
 # yarn is available in epel
 BuildRequires: yarnpkg
 
-# standard
-Requires(pre): gawk
-
-%package setup
-Summary: Glue package for Kompot
-Group: Applications/System
-Requires: %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+# kompot-setup is now part of the kompot package
+Obsoletes: kompot-setup
 
 # standard
 Requires: cronie
 Requires: diffutils
 Requires: findutils
+Requires(pre): gawk
 Requires: httpd
 Requires: iproute
 Requires: jq
@@ -123,9 +119,6 @@ Requires: grafana
 
 %description
 This package installs Kompot.
-
-%description setup
-System setup and dependencies for Kompot.
 
 %prep
 %setup -c -T
@@ -274,14 +267,8 @@ fi
 
 %files
 /opt/kompot
-%exclude /opt/kompot/bin/setup-kompot
-%exclude /opt/kompot/share/migration
 
-%files setup
-/opt/kompot/bin/setup-kompot
-/opt/kompot/share/migration
-
-%posttrans setup
+%posttrans
 set -e
 # busybox sv is installed in /usr/local/bin on kompot docker
 PATH+=:/usr/local/bin
