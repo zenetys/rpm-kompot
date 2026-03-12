@@ -1,6 +1,6 @@
 # Supported targets: el9
 
-%{!?kompot_core_version: %define kompot_core_version 1.0.25}
+%{!?kompot_core_version: %define kompot_core_version 1.0.26}
 #define kompot_core_revision 1234567
 %{!?kompot_wui_version: %define kompot_wui_version 1.0.10}
 #define kompot_wui_revision 1234567
