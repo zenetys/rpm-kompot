@@ -1,6 +1,6 @@
 | Package&nbsp;name | Supported&nbsp;targets |
 | :--- | :--- |
-| kompot<br/>kompot-setup | el9 |
+| kompot | el9 |
 <br/>
 
 ## Build:
