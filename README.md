@@ -19,4 +19,4 @@ https://packages.zenetys.com/projects/kompot/latest/redhat/
 ## Documentation:
 
 Some pieces of documentation are available in [zenetys/kompot-core/doc](https://github.com/zenetys/kompot-core/tree/master/doc).</br>
-See page [zenetys/kompot-core/doc/install_rpm.md](https://github.com/zenetys/kompot-core/tree/master/doc/install_rpm.md) for KOMPOT installation from RPM package.
+See page [zenetys/kompot-core/doc/install_rpm_en.md](https://github.com/zenetys/kompot-core/tree/master/doc/install_rpm_en.md) for KOMPOT installation from RPM package.
