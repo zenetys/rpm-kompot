@@ -5,7 +5,7 @@ rpm -Uvh "$CACHEDIR/epel-release-latest-$DIST_VERSION.noarch.rpm"
 
 case "$DIST" in
     el9)
-        dnf module enable -y nodejs:18
+        dnf module enable -y nodejs:24
         echo install_weak_deps=False >> /etc/dnf/dnf.conf
         ;;
     *)

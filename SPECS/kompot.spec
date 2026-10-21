@@ -2,7 +2,7 @@
 
 %{!?kompot_core_version: %define kompot_core_version 1.0.27}
 #define kompot_core_revision 1234567
-%{!?kompot_wui_version: %define kompot_wui_version 1.0.10}
+%{!?kompot_wui_version: %define kompot_wui_version 1.0.11}
 #define kompot_wui_revision 1234567
 
 %{!?zplugins_version: %define zplugins_version 1.0.8}
@@ -28,7 +28,7 @@
 
 Name: kompot
 Version: %{kompot_core_version}
-Release: 1%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
+Release: 2%{?kompot_core_revision:.git%{kompot_core_revision}}%{?dist}.zenetys
 Summary: Kompot monitoring utilities
 Group: Applications/System
 License: MIT
